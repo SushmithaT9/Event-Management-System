@@ -14,11 +14,10 @@ public class DBUtil {
         
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
-            System.out.println("Database connection established");
             return connection;
         } catch (SQLException e) {
             System.out.println("Failed to connect to the database");
-            throw e;  // Rethrow the exception for higher-level handling
+            throw e;
         }
     }
 }

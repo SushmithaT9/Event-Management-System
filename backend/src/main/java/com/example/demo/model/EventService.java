@@ -1,12 +1,18 @@
 package com.example.demo.model;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
 import com.example.demo.utils.DBUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
 @Service
 public class EventService {
 
@@ -114,6 +120,22 @@ public class EventService {
             return false;
         }
     }
+    
+   
+    public boolean deleteEventByTitle(String title) {
+        try (Connection conn = DBUtil.getConnection()) {
+            String sql = "DELETE FROM events WHERE title = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, title);
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error deleting event: " + title);
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 }

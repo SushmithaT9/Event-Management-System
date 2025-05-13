@@ -27,6 +27,15 @@ public class EventController {
         }
 
     }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteEvent(@RequestParam String title) {
+        boolean success = eventService.deleteEventByTitle(title);
+        if (success) {
+            return ResponseEntity.ok("Event deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        }
+    }
 
 
     // New GET method to fetch all events
